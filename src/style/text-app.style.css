@@ -1,0 +1,88 @@
+@font-face {
+    font-family: Alsina;
+    src: url(../../assets/font/Alsina.ttf);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    transition: all .3s ease-in-out;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100dvh;
+    font-family: Alsina, Arial, Helvetica, sans-serif;
+    background: #f4f4f4;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* place-items: center; */
+}
+
+#canvas-container {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+canvas {
+    width: max-content;
+    border: 1px solid;
+    padding: 1rem;
+}
+
+#controls {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+textarea {
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    width: 100%;
+    height: 200px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+}
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+button {
+    flex: 1;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+button:hover {
+    background: #333;
+}
+
+#downloadBtn {
+    display: none;
+}
+
+@media screen and (max-width: 876px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
