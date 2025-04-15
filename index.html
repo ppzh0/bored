@@ -3,251 +3,34 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/32f3a385a3.js" crossorigin="anonymous"></script>
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            /* outline: solid rgba(173, 216, 230, 0.6); */
-        }
-
-        /* html,
-        body {
-            padding: 0;
-            margin: 0;
-        } */
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Text to Image</title>
+    <link rel="stylesheet" href="./src/style/text-app.style.css">
 </head>
 
 <body>
 
-    <div class="container-fluid">
-        <div class="row g-0">
-            <nav class="col-2 bg-light pe-3">
-                <h1 class="h4 py-3 text-center text-primary">
-                    <i class="fas fa-ghost me-2"></i>
-                    <span class="d-none d-lg-inline">Ghost Admin</span>
-                </h1>
-                <div class="list-group text-center text-lg-start">
-                    <span class="list-group-item disabled d-none d-lg-block">
-                        <small>CONTROLS</small>
-                    </span>
-                    <a href="" class="list-group-item list-group-item-action active">
-                        <i class="fas fa-home"></i>
-                        <span class="d-none d-lg-inline">
-                            Dashboard
-                        </span>
-                    </a>
-                    <a href="" class="list-group-item list-group-item-action">
-                        <i class="fas fa-users"></i>
-                        <span class="d-none d-lg-inline">Users</span>
-                        <span class="d-none d-lg-inline badge bg-danger rounded-pill float-end">68</span>
-                    </a>
-                    <a href="" class="list-group-item list-group-item-action">
-                        <i class="fas fa-chart-line"></i>
-                        <span class="d-none d-lg-inline">Statistics</span>
-                    </a>
-                    <a href="" class="list-group-item list-group-item-action">
-                        <i class="fas fa-flag"></i>
-                        <span class="d-none d-lg-inline">Reports</span>
-                    </a>
-                </div>
+    <div id="controls">
+        <textarea id="userText" placeholder="Type your words here...">
+This is "Alsina", the Vsauce font. It is named in honor of its creator! 
 
-                <div class="list-group mt-4 text-center text-lg-start">
-                    <span class="list-group-item disabled d-none d-lg-block">
-                        <small>ACTIONS</small>
-                    </span>
-                    <a href="" class="list-group-item list-group-item-action">
-                        <i class="fas fa-user"></i>
-                        <span class="d-none d-lg-inline">New User</span>
-                    </a>
-                    <a href="" class="list-group-item list-group-item-action">
-                        <i class="fas fa-edit"></i>
-                        <span class="d-none d-lg-inline">Update Data</span>
-                    </a>
-                    <a href="" class="list-group-item list-group-item-action">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span class="d-none d-lg-inline">Add Events</span>
-                    </a>
-                </div>
-            </nav>
-            <main class="col-10 bg-secondary">
-                <nav class="navbar navbar-expand-lg bg-light">
+Click the `Preview` button to preview the font on the canvas!
 
-                    <div class="flex-fill"></div>
+Some languages that uses word segmentation; Japanese, Burmese, Chinese, etc. are not supported. You can try writing if you want to test!
 
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fas fa-user-circle"></i>
-                            </a>
-
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <a href="" class="dropdown-item">User Profile</a>
-                                </li>
-                                <li>
-                                    <a href="" class="dropdown-item">Logout</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="fas fa-cog"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-
-                <div class="container-fluid mt-3 p-4">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <div class="alert alert-info">
-                                <i class="fas fa-download me-2"></i> A newer version of the admin dashboard is released.
-                                <a href="">Download Now!</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row flex-column flex-lg-row">
-                        <h2 class="h6 text-white-50">QUICK STATS</h2>
-                        <div class="col">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h3 class="card-title h2">1,250</h3>
-                                    <span class="text-success">
-                                        <i class="fas fa-chart-line"></i>
-                                        Daily visitors
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h3 class="card-title h2">8,210</h3>
-                                    <span class="text-success">
-                                        <i class="fas fa-chart-line"></i>
-                                        Weekly visitors
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h3 class="card-title h2">12,560</h3>
-                                    <span class="text-success">
-                                        <i class="fas fa-chart-line"></i>
-                                        Monthly visitors
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h3 class="card-title h2">102,250</h3>
-                                    <span class="text-success">
-                                        <i class="fas fa-chart-line"></i>
-                                        Yearly visitors
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-4 flex-column flex-lg-row">
-                        <div class="col">
-                            <h2 class="h6 text-white-50">LOCATION</h2>
-                            <div class="card mb-3" style="height: 280px">
-                                <div class="card-body">
-                                    <small class="text-muted">Regional</small>
-                                    <div class="progress mb-4 mt-2" style="height: 5px">
-                                        <div class="progress-bar w-25"></div>
-                                    </div>
-                                    <small class="text-muted">Global</small>
-                                    <div class="progress mb-4 mt-2" style="height: 5px">
-                                        <div class="progress-bar w-75"></div>
-                                    </div>
-                                    <small class="text-muted">Local</small>
-                                    <div class="progress mb-4 mt-2" style="height: 5px">
-                                        <div class="progress-bar w-50"></div>
-                                    </div>
-                                    <small class="text-muted">Internal</small>
-                                    <div class="progress mb-4 mt-2" style="height: 5px">
-                                        <div class="progress-bar bg-danger w-25"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <h2 class="h6 text-white-50">DATA</h2>
-                            <div class="card mb-3" style="height: 280px">
-                                <div class="card-body">
-                                    <div class="text-end">
-                                        <button class="btn btn-sm btn-outline-secondary">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-secondary">
-                                            <i class="fas fa-sort-amount-up"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-secondary">
-                                            <i class="fas fa-filter"></i>
-                                        </button>
-                                    </div>
-                                    <table class="table">
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Age Group</th>
-                                            <th>Data</th>
-                                            <th>Progress</th>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>20-30</td>
-                                            <td>19%</td>
-                                            <td><i class="fas fa-area-chart"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>30-40</td>
-                                            <td>40%</td>
-                                            <td><i class="fas fa-bar-chart"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>40-50</td>
-                                            <td>20%</td>
-                                            <td><i class="fas fa-line-chart"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>>50</td>
-                                            <td>11%</td>
-                                            <td><i class="fas fa-pie-chart"></i></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
+This canvas can go on forever though the scrolling gets harder.</textarea>
+        <div class="button-row">
+            <button onclick="generatePreview()">Preview</button>
+            <button id="downloadBtn" onclick="downloadImage()">Download</button>
         </div>
     </div>
-    <footer class="text-center text-muted py-4">
-        &copy; Copyright 2025
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-        crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/a39da4ad33.js" crossorigin="anonymous"></script>
+
+    <div id="canvas-container">
+        <canvas id="textCanvas"></canvas>
+    </div>
+
+    <script src="./src/js/text-app.script.js"></script>
+
 </body>
 
 </html>
