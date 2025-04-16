@@ -9,12 +9,18 @@
 </head>
 
 <body>
-
     <div id="controls">
+        <div>
+            <span style="font-size: 2px !important;">Hey, Vsauce. Michael here (pls don't sue me)</span>
+            <h1>Text to Vsauce!</h1>
+            <small>Write some brain damaging knowledge and send it to other people! (At least, write something so that they would get confused.)</small>
+        </div>
         <textarea id="userText" placeholder="Type your words here...">
 This is "Alsina", the Vsauce font. It is named in honor of its creator! 
 
-Click the `Preview` button to preview the font on the canvas!
+Click the `Preview` button to preview the font on the canvas! 
+
+If the font seems strange, click on the preview button again. (It's like a cache bug or something, idk how to fix it.)
 
 Some languages that uses word segmentation; Japanese, Burmese, Chinese, etc. are not supported. You can try writing if you want to test!
 
@@ -23,11 +29,13 @@ This canvas can go on forever though the scrolling gets harder.</textarea>
             <button onclick="generatePreview()">Preview</button>
             <button id="downloadBtn" onclick="downloadImage()">Download</button>
         </div>
+        <small class="alert-text">Alsina font should look like this text.</small>
     </div>
 
     <div id="canvas-container">
         <canvas id="textCanvas"></canvas>
     </div>
+    <!-- <small class="alert-text">Other font support is coming soon! (or probably in a decade or something like that.)</small> -->
 
     <script src="./src/js/text-app.script.js"></script>
 

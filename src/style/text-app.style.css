@@ -21,6 +21,12 @@ body {
     /* place-items: center; */
 }
 
+small.alert-text {
+    background-color: rgba(255, 255, 0, 0.45);
+    padding: .45rem;
+    text-align: center;
+}
+
 #canvas-container {
     width: 100%;
     height: max-content;
@@ -30,7 +36,7 @@ body {
 }
 
 canvas {
-    width: max-content;
+    width: 90%;
     border: 1px solid;
     padding: 1rem;
 }
