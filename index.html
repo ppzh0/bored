@@ -13,7 +13,8 @@
         <div>
             <span style="font-size: 2px !important;">Hey, Vsauce. Michael here (pls don't sue me)</span>
             <h1>Text to Vsauce!</h1>
-            <small>Write some brain damaging knowledge and send it to other people! (At least, write something so that they would get confused.)</small>
+            <small>Write some brain damaging knowledge and send it to other people! (At least, write something so that
+                they would get confused.)</small>
         </div>
         <textarea id="userText" placeholder="Type your words here...">
 This is "Alsina", the Vsauce font. It is named in honor of its creator! 
@@ -25,17 +26,33 @@ If the font seems strange, click on the preview button again. (It's like a cache
 Some languages that uses word segmentation; Japanese, Burmese, Chinese, etc. are not supported. You can try writing if you want to test!
 
 This canvas can go on forever though the scrolling gets harder.</textarea>
-        <div class="button-row">
-            <button onclick="generatePreview()">Preview</button>
-            <button id="downloadBtn" onclick="downloadImage()">Download</button>
+
+        <div class="controls-row">
+            <label>Font size: <input id="fontSize" type="number" min="8" max="300" value="48"> px</label>
+            <label>Line height: <input id="lineHeight" type="number" step="0.1" min="1" max="3" value="1.3"></label>
+            <label>Text: <input id="textColor" type="color" value="#000000"></label>
+            <label>Background: <input id="bgColor" type="color" value="#ffffff"></label>
         </div>
+
+        <div class="button-row">
+            <button id="previewBtn">Preview</button>
+            <button id="downloadBtn">Download</button>
+            <button id="copyBtn">Copy</button>
+        </div>
+
+        <div class="controls-row">
+            <label>Filename: <input id="filename" placeholder="text-image"></label>
+            <label><input id="autoPreview" type="checkbox" checked> Auto-preview</label>
+        </div>
+
         <small class="alert-text">Alsina font should look like this text.</small>
+        <small class="alert-text">Other font support is coming soon! (or probably in a decade or something like
+            that.)</small>
     </div>
 
     <div id="canvas-container">
         <canvas id="textCanvas"></canvas>
     </div>
-    <!-- <small class="alert-text">Other font support is coming soon! (or probably in a decade or something like that.)</small> -->
 
     <script src="./src/js/text-app.script.js"></script>
 

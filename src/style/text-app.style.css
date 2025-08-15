@@ -7,7 +7,7 @@
 *::before,
 *::after {
     box-sizing: border-box;
-    transition: all .3s ease-in-out;
+    transition: all .18s ease-in-out;
 }
 
 body {
@@ -17,28 +17,33 @@ body {
     font-family: Alsina, Arial, Helvetica, sans-serif;
     background: #f4f4f4;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* place-items: center; */
+    grid-template-columns: 360px 1fr;
+    gap: 0.5rem;
 }
 
 small.alert-text {
     background-color: rgba(255, 255, 0, 0.45);
-    padding: .45rem;
+    padding: .35rem;
     text-align: center;
+    display: block;
 }
 
 #canvas-container {
     width: 100%;
-    height: max-content;
+    height: 100%;
     display: flex;
     justify-content: center;
-    padding: 1rem 0;
+    align-items: flex-start;
+    padding: 1rem 1.5rem;
+    overflow: auto;
 }
 
 canvas {
     width: 90%;
-    border: 1px solid;
-    padding: 1rem;
+    max-width: 1200px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: white;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
 }
 
 #controls {
@@ -47,48 +52,75 @@ canvas {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    background: white;
+    border-right: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 textarea {
     padding: 0.75rem;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     width: 100%;
-    height: 200px;
-    border: 1px solid #ccc;
+    height: 220px;
+    border: 1px solid #ddd;
     border-radius: 6px;
     resize: vertical;
 }
 
+.controls-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.controls-row label {
+    font-size: 0.95rem;
+}
+
+.controls-row input[type="number"],
+.controls-row input[type="text"] {
+    width: 5.5rem;
+}
+
 .button-row {
     display: flex;
-    flex-wrap: wrap;
     gap: 0.5rem;
 }
 
 button {
-    flex: 1;
-    padding: 0.75rem;
-    font-size: 1.1rem;
-    background: black;
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+    background: #111;
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    min-width: 100px;
 }
 
 button:hover {
-    background: #333;
+    background: #222;
 }
 
-#downloadBtn {
+#downloadBtn,
+#copyBtn {
     display: none;
 }
 
-@media screen and (max-width: 876px) {
+@media screen and (max-width: 900px) {
     body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
+    }
+
+    #controls {
+        order: 2;
+    }
+
+    #canvas-container {
+        order: 1;
+        padding-top: 0.25rem;
+    }
+
+    canvas {
+        width: 98%;
     }
 }
