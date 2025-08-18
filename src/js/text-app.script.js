@@ -8,7 +8,7 @@ let options = {
     fontFamily: 'Alsina, Comic Sans MS, sans-serif',
     paddingY: 96, // will be scaled with fontSize on generate
     paddingX: 42,
-    canvasCssMaxWidthPercent: 0.9,
+    canvasCssWidth: 600, // constant CSS width for canvas across devices
     bgColor: '#ffffff',
     textColor: '#000000'
 };
@@ -31,19 +31,20 @@ async function loadFont(fontFamilyName = 'Alsina') {
 }
 
 function getContainerCssWidth() {
-    const container = document.getElementById('canvas-container');
-    const rect = container.getBoundingClientRect();
-    // use a percentage of the container width to match existing styling
-    return Math.max(200, rect.width * options.canvasCssMaxWidthPercent);
+    // Return a fixed CSS width so the canvas appears the same across devices
+    return options.canvasCssWidth;
 }
 
 function setCanvasDimensions(cssWidth, cssHeight) {
     const dpr = window.devicePixelRatio || 1;
-    canvas.style.width = `${Math.round(cssWidth)}px`;
-    canvas.style.height = `${Math.round(cssHeight)}px`;
+    // Keep the internal pixel buffer sized for crisp rendering
     canvas.width = Math.round(cssWidth * dpr);
     canvas.height = Math.round(cssHeight * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // keep drawing coordinates in CSS pixels
+    // Let the CSS control displayed size: make canvas fill its wrapper responsively
+    canvas.style.width = '100%';
+    canvas.style.height = 'auto';
+    // Map drawing coordinates to CSS pixels (so we can draw using CSS px units)
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 
 function segmentText(raw) {
@@ -155,7 +156,13 @@ async function generatePreview() {
     document.getElementById('copyBtn').style.display = 'inline-block';
 }
 
-function downloadImage() {
+async function downloadImage() {
+    // Refresh options from the UI to ensure export uses current settings
+    options.fontSize = Number(document.getElementById('fontSize').value) || options.fontSize;
+    options.lineHeightMultiplier = Number(document.getElementById('lineHeight').value) || options.lineHeightMultiplier;
+    options.textColor = document.getElementById('textColor').value || options.textColor;
+    options.bgColor = document.getElementById('bgColor').value || options.bgColor;
+
     const filenameInput = document.getElementById('filename');
     let filename = (filenameInput && filenameInput.value.trim()) || '';
     if (!filename) {
@@ -164,8 +171,70 @@ function downloadImage() {
     }
     filename = filename.endsWith('.png') ? filename : `${filename}.png`;
 
-    // Use toBlob for better performance and memory
-    canvas.toBlob((blob) => {
+    // Read requested export scale (1, 2, 3, ...)
+    const exportScale = Number(document.getElementById('exportScale')?.value) || 1;
+
+    // Ensure font is loaded at the requested size before measuring/drawing
+    await loadFont('Alsina');
+    if (document.fonts && document.fonts.load) {
+        try {
+            await document.fonts.load(`${options.fontSize}px "Alsina"`);
+        } catch (e) {
+            // ignore and continue
+        }
+    }
+
+    // Prepare metrics (use a measurement context so wrapping is consistent)
+    const cssWidth = options.canvasCssWidth;
+    const paddingX = Math.max(16, options.paddingX);
+    const paddingY = options.fontSize * 2;
+
+    const measureCanvas = document.createElement('canvas');
+    const mctx = measureCanvas.getContext('2d');
+    // Use same font string as drawing so measurements match
+    mctx.font = `${options.fontSize}px ${options.fontFamily}`;
+
+    const maxTextWidth = cssWidth - paddingX * 2;
+    const text = document.getElementById('userText').value || '';
+    const wrapped = wrapTextLines(text, maxTextWidth, mctx);
+
+    const lineHeight = options.fontSize * options.lineHeightMultiplier;
+    const totalTextHeight = Math.max(lineHeight, wrapped.length * lineHeight);
+    const cssHeight = totalTextHeight + paddingY * 2;
+
+    const dpr = window.devicePixelRatio || 1;
+    const pixelW = Math.round(cssWidth * dpr * exportScale);
+    const pixelH = Math.round(cssHeight * dpr * exportScale);
+
+    // Create a high-res offscreen canvas for export
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = pixelW;
+    tempCanvas.height = pixelH;
+    // Keep CSS dimensions so drawing coordinates are in CSS pixels
+    tempCanvas.style.width = `${cssWidth}px`;
+    tempCanvas.style.height = `${cssHeight}px`;
+
+    const tctx = tempCanvas.getContext('2d');
+    // scale so that drawing coordinates are in CSS px but map to (dpr * exportScale) device pixels
+    tctx.setTransform(dpr * exportScale, 0, 0, dpr * exportScale, 0, 0);
+
+    // paint background
+    tctx.fillStyle = options.bgColor;
+    tctx.fillRect(0, 0, cssWidth, cssHeight);
+
+    // paint text
+    tctx.fillStyle = options.textColor;
+    tctx.font = `${options.fontSize}px ${options.fontFamily}`;
+    tctx.textAlign = 'left';
+    tctx.textBaseline = 'top';
+
+    const startY = paddingY;
+    wrapped.forEach((line, i) => {
+        tctx.fillText(line, paddingX, startY + i * lineHeight);
+    });
+
+    // Export the high-res canvas as PNG blob
+    tempCanvas.toBlob((blob) => {
         if (!blob) return;
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');

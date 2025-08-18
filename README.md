@@ -1,5 +1,7 @@
 # bored
 
+> some "thing" with big vision, but no ability
+
 A tiny web app that renders user text onto a canvas using the "Alsina" font (Vsauce-inspired) and allows downloading or copying the result as an image.
 
 Features added:

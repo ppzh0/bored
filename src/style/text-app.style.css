@@ -19,6 +19,8 @@ body {
     display: grid;
     grid-template-columns: 360px 1fr;
     gap: 0.5rem;
+    overflow-x: hidden;
+    /* prevent page-level horizontal scroll */
 }
 
 small.alert-text {
@@ -30,17 +32,36 @@ small.alert-text {
 
 #canvas-container {
     width: 100%;
-    height: 100%;
+    /* allow the container to grow based on content rather than forcing 100% height */
+    height: auto;
+    min-height: 240px;
+    /* ensure visible area on small screens before JS runs */
     display: flex;
     justify-content: center;
     align-items: flex-start;
     padding: 1rem 1.5rem;
     overflow: auto;
+    /* keep local scroll box for tall/wide canvases */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* New wrapper: keeps the canvas at the intended logical width but allows downscaling on small screens */
+#canvas-wrap {
+    width: 100%;
+    max-width: 600px;
+    /* logical width used by the drawing code; scales down on narrow viewports */
+    display: block;
+    box-sizing: border-box;
 }
 
 canvas {
-    width: 90%;
-    max-width: 1200px;
+    display: block;
+    /* avoid inline layout quirks */
+    width: 100%;
+    max-width: 600px;
+    /* ensure displayed canvas never exceeds logical width */
+    min-height: 220px;
+    /* fallback height so user sees something on mobile before rendering */
     border: 1px solid rgba(0, 0, 0, 0.12);
     background: white;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
@@ -111,16 +132,14 @@ button:hover {
         grid-template-columns: 1fr;
     }
 
-    #controls {
-        order: 2;
-    }
-
+    /* Keep DOM order: controls then canvas. Do not swap with CSS order. */
     #canvas-container {
-        order: 1;
         padding-top: 0.25rem;
+        min-height: 320px;
     }
 
     canvas {
         width: 98%;
+        min-height: 320px;
     }
 }
