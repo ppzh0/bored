@@ -6,9 +6,10 @@ let options = {
     fontSize: 48, // px
     lineHeightMultiplier: 1.3,
     fontFamily: 'Alsina, Comic Sans MS, sans-serif',
+    // fontFamily: 'InstrumentSerif, KTX, nth, RAGE, Alsina, Comic Sans MS, sans-serif',
     paddingY: 96, // will be scaled with fontSize on generate
     paddingX: 42,
-    canvasCssWidth: 600, // constant CSS width for canvas across devices
+    canvasCssWidth: 720, // constant CSS width for canvas across devices
     bgColor: '#ffffff',
     textColor: '#000000'
 };

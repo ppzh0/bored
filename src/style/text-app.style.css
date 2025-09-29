@@ -2,6 +2,26 @@
     font-family: Alsina;
     src: url(../../assets/font/Alsina.ttf);
 }
+/* 
+@font-face {
+    font-family: RAGE;
+    src: url(../../assets/font/RAGE.ttf);
+}
+
+@font-face {
+    font-family: nth;
+    src: url(../../assets/font/NothingYouCouldDo-Regular.ttf);
+}
+
+@font-face {
+    font-family: KTX;
+    src: url(../../assets/font/KaTeX_Fraktur-Regular.ttf);
+}
+
+@font-face {
+    font-family: InstrumentSerif;
+    src: url(../../assets/font/InstrumentSerif-Regular.ttf);
+}   */
 
 *,
 *::before,
